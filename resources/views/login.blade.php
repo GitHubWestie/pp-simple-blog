@@ -26,7 +26,7 @@
                     <div class="form-elements">
                         <label class="form-label" for="login-email">Email:</label>
                         <input class="form-input" id="login-email" name="login-email" type="text" placeholder="joeBloggs@example.com" minlength="3" maxlength="255" required aria-required="true" aria-labelledby="login-email">
-                        @error('email')
+                        @error('login-email')
                             <div class="validation-error" data-input="login-email">{{ $message }}</div>
                         @enderror
                     </div>
@@ -53,8 +53,8 @@
                     @csrf
                     <div class="form-elements">
                         <label class="form-label" for="register-email">Email:</label>
-                        <input class="{{ $errors->has('register-email') ? 'input-error' : 'form-input' }}" value="{{ old('email') }}" id="register-email" name="email" type="email" placeholder="joeBloggs@example.com" minlength="3" maxlength="255" autocomplete="off" required autofocus aria-required="true" aria-labelledby="register-email">
-                        @error('email')
+                        <input class="{{ $errors->has('register-email') ? 'input-error' : 'form-input' }}" value="{{ old('register-email') }}" id="register-email" name="register-email" type="email" placeholder="joeBloggs@example.com" minlength="3" maxlength="255" autocomplete="off" required autofocus aria-required="true" aria-labelledby="register-email">
+                        @error('register-email')
                             <div class="validation-error" data-input="register-email">{{ $message }}</div>
                         @enderror
                     </div>
