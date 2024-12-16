@@ -25,7 +25,7 @@ class UsersController extends Controller
     {
         // Validates register form data
         $validatedData = $request->validate([
-            'email' => 'required|email|min:3|max:255|unique:users,email', // No space after comma or it wont work!
+            'register-email' => 'required|email|min:3|max:255|unique:users,email', // No space after comma or it wont work!
             'password' => 'required|string|min:8|max:128',
             'confirm-password' => 'required|same:password',
         ]);
