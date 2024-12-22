@@ -5,15 +5,42 @@ namespace App\Http\Controllers;
 use App\Models\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rules\Exists;
 
 class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        // Validate form data
+        $validatedData = $request->validate([
+            'login-email' => 'email|min:3|max:255|required',
+            'login-password' => 'string|min:8|max:128|required',
+        ]);
+
+        // Find user in DB using validated data
+        $user = Users::where('email', '=', $validatedData['login-email'])->first();
+
+        // Check if user not found
+        if(!$user) {
+            return redirect()->back()->withErrors([
+                'login-email' => 'Email and/or password incorrect',
+                ])->withInput();
+        }
+
+        // Check if password in validated data does not match DB
+        if($user['password'] !== $validatedData['login-password']) {
+            return redirect()->back()->withErrors([
+                'login-email' => 'Email and/or password incorrect',
+                ])->withInput();
+        }
+
+        // Check if user exists and validated password matches password in DB
+        if($user && $user['password'] === $validatedData['login-password']) {
+            return 'User match. Welcome to your homepage';
+        }
     }
 
     /**
@@ -32,7 +59,7 @@ class UsersController extends Controller
 
             // Creates new user and saves to DB
             $user = new Users();
-            $user->email = $validatedData['email'];
+            $user->email = $validatedData['register-email'];
             $user->password = $validatedData['password'];
             $user->save();
 

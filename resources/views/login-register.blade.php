@@ -25,14 +25,14 @@
                     @csrf
                     <div class="form-elements">
                         <label class="form-label" for="login-email">Email:</label>
-                        <input class="form-input" id="login-email" name="login-email" type="text" placeholder="joeBloggs@example.com" minlength="3" maxlength="255" required aria-required="true" aria-labelledby="login-email">
+                        <input class="{{ $errors->has('login-email') ? 'input-error' : 'form-input' }}" value="{{ old('login-email') }}" id="login-email" name="login-email" type="text" placeholder="joeBloggs@example.com" minlength="3" maxlength="255" required aria-required="true" aria-labelledby="login-email">
                         @error('login-email')
                             <div class="validation-error" data-input="login-email">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="form-elements">
                         <label class="form-label" for="login-password">Password:</label>
-                        <input class="form-input" id="login-password" name="login-password" type="password" placeholder="Password" minlength="8" maxlength="32" required aria-required="true" aria-labelledby="login-password">
+                        <input class="{{ $errors->has('login-password') ? 'input-error' : 'form-input' }}" id="login-password" name="login-password" type="password" placeholder="Password" minlength="8" maxlength="32" required aria-required="true" aria-labelledby="login-password">
                         @error('login-password')
                             <div class="validation-error" data-input="login-password">{{ $message }}</div>
                         @enderror
